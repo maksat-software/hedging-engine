@@ -1,0 +1,91 @@
+[package]
+name = "hedging-engine"
+version = "0.1.0"
+edition = "2024"
+authors = ["Maksat Annageldyev <contact@maksat.software>"]
+description = "Sub-microsecond algorithmic hedging engine for energy derivatives"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/maksat-software/hedging-engine"
+keywords = ["trading", "hedging", "energy", "low-latency", "algorithmic"]
+categories = ["finance", "algorithms"]
+
+[lib]
+name = "hedging_engine"
+path = "src/lib.rs"
+
+[[bin]]
+name = "hedging-engine"
+path = "src/main.rs"
+
+[[example]]
+name = "simple_hedge"
+path = "examples/simple_hedge.rs"
+
+[[example]]
+name = "backtest"
+path = "examples/backtest.rs"
+
+[[example]]
+name = "live_demo"
+path = "examples/live_demo.rs"
+
+[[bench]]
+name = "latency_bench"
+harness = false
+
+[features]
+default = []
+dpdk = []  # Enable with: cargo build --features dpdk
+
+[dependencies]
+# Async runtime
+tokio = { version = "1.48", features = ["full"] }
+
+# Lock-free structures
+crossbeam = "0.8.4"
+parking_lot = "0.12.5"
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+bincode = "1.3.3"
+
+# Network
+bytes = "1.11"
+
+# Math & Statistics
+nalgebra = "0.32.6"
+statrs = "0.16.1"
+
+# Utilities
+thiserror = "2.0.17"
+anyhow = "1.0.100"
+log = "0.4.28"
+env_logger = "0.11.8"
+
+# Performance
+smallvec = "1.15.1"
+ahash = "0.8.12"
+
+# Time
+chrono = { version = "0.4", features = ["serde"] }
+static_assertions = "1.1.0"
+
+[dev-dependencies]
+criterion = { version = "0.8.0", features = ["html_reports"] }
+proptest = "1.9"
+approx = "0.5"
+
+[profile.release]
+debug = true
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+strip = true
+
+[profile.bench]
+inherits = "release"
+
+[profile.dev]
+opt-level = 0

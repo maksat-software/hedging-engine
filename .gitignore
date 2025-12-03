@@ -16,3 +16,63 @@ bin-release/
 # Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
 # should NOT be excluded as they contain compiler settings and other important
 # information for Eclipse / Flash Builder.
+
+# Rust
+/target/
+**/*.rs.bk
+*.pdb
+Cargo.lock
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Profiling
+perf.data
+perf.data.old
+flamegraph.svg
+massif.out.*
+callgrind.out.*
+
+# Benchmarks
+/target/criterion/
+
+# Logs
+*.log
+
+# Build artifacts
+*.so
+*.dylib
+*.dll
+*.a
+
+# Documentation build
+/target/doc/
+
+# Local configuration
+.env
+config.local.toml
+
+# Temporary files
+/tmp/
+*.tmp
+*.temp
+
+# Data files (keep sample)
+/data/*.csv
+!/data/sample_ticks.csv
+
+# Test outputs
+/test-results/
+
+# Coverage
+/coverage/
+*.profraw
+*.profdata
